@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (DgUser)表数据库访问层
+ * (User)表数据库访问层
  *
  * @author makejava
  * @since 2020-02-18 22:15:22

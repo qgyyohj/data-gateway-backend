@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/data_gateway?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    #连接池初始化的大小
+    initialSize: 5
+    #最小
+    minIdle: 5
+    #连接池的最大数据库连接数。设为0表示无限制。
+    maxActive: 20
+    #最大等待连接中的数量,设 0 为没有限制
+    #maxIdle: 0
+    #配置获取连接等待超时的时间：ms
+    maxWait: 60000
+    #配置间隔多久才进行一次检测，检测需要关闭的空闲连接：ms
+    timeBetweenEvictionRunsMillis: 60000
+    #配置一个连接在池中最小生存的时间:ms
+    minEvictableIdleTimeMillis: 300000
+    #配置一个连接在池中最大生存的时间:ms
+    #maxEvictableIdleTimeMillis: 600000
+
+    #测试连接用的，select 1是mysql的写法，先这么写着吧
+    validationQuery: select 1
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+
+    #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,logback
+
+    #不知道啥意思，官网都是这么给的，先抄下来吧，等出错了估计就知道这两条啥意思了
+    keepAlive: true
+    phyMaxUseCount: 1000
+
+#mybatis的配置
+mybatis:
+  #实体类所在位置
+  type-aliases-package: com.gateway.entity
+  #mapper.xml所在位置
+  mapper-locations: classpath*:mapper/*.xml
