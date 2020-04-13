@@ -1,9 +1,14 @@
 package com.gateway.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.gateway.entity.DataBase;
+
 import java.sql.Connection;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -12,9 +17,9 @@ import java.util.Properties;
 public class ConnectionPool {
 
     /**
-     * 数据源
+     * 数据源s
      */
-    DruidDataSource druidDataSource;
+    Map<Integer, DruidDataSource> dataSourceMap = new HashMap<>();
 
     /**
      * 单例模型
@@ -29,13 +34,13 @@ public class ConnectionPool {
     /**
      * 初始化公共配置
      */
-    public ConnectionPool(){
+    private ConnectionPool(){
         // 连接池初始化大小
-        commonProps.setProperty("initialSize","10");
+        commonProps.setProperty("initialSize","3");
         // 连接池最小
-        commonProps.setProperty("minIdle","10");
+        commonProps.setProperty("minIdle","1");
         // 连接池的最大数据库连接数 设为0表示无限制
-        commonProps.setProperty("maxActive","20");
+        commonProps.setProperty("maxActive","10");
         // 配置获取连接等待超时的时间：ms
         commonProps.setProperty("maxWait","60000");
         // 配置间隔多久才进行一次检测，检测需要关闭的空闲连接：ms
@@ -52,7 +57,47 @@ public class ConnectionPool {
 
     }
 
-    public ConnectionPool()
+    public void addDataBase(DataBase dataBase){
+        Properties dbProps = new Properties(commonProps);
+        switch (dataBase.getType()){
+            case "MySql":
+                dbProps.setProperty("driver","com.mysql.jdbc.Driver");
+                dbProps.setProperty("url","jdbc:mysql://"+dataBase.getServerIp()+":"+dataBase.getPort()+"/"+dataBase.getDbName());
+                dbProps.setProperty("connectionProperties","useUnicode=true;characterEncoding=UTF8");
+                break;
+            case "Oracle":
+                dbProps.setProperty("driver","oracle.jdbc.driver.OracleDriver");
+                dbProps.setProperty("url","jdbc:oracle:thin:@"+dataBase.getServerIp()+":"+dataBase.getPort()+":"+dataBase.getDbName());
+                System.out.println("Oracle");
+                break;
+            case "SqlServer":
+                System.out.println("SqlServer");
+                break;
+            case "Excel":
+                System.out.println("Excel");
+                break;
+            default:
+                break;
+        }
+
+        try{
+            DruidDataSource druidDataSource = (DruidDataSource)DruidDataSourceFactory.createDataSource(dbProps);
+            this.dataSourceMap.put(dataBase.getId(),druidDataSource);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 移除数据源
+     * @param id
+     */
+    public void removeDataSource(Integer id){
+        if(dataSourceMap.containsKey(id)){
+            dataSourceMap.get(id).close();
+            dataSourceMap.remove(id);
+        }
+    }
 
     /**
      * 获取单例
