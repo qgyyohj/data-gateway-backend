@@ -1,11 +1,13 @@
 package com.gateway.entity;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
  * @author Z
  */
 @Data
+@Builder
 public class DataBase {
 
     Integer id;
@@ -14,7 +16,7 @@ public class DataBase {
 
     String password;
 
-    String port;
+    Integer port;
 
     String dbName;
 
