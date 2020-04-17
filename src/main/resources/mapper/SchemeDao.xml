@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gateway.dao.SchemeDao">
+
+    <resultMap type="com.gateway.entity.Scheme" id="SchemeMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
+        <result property="targetId" column="target_id" jdbcType="INTEGER"/>
+        <result property="sourceCols" column="source_cols" jdbcType="VARCHAR"/>
+        <result property="targetCols" column="target_cols" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="INTEGER"/>
+        <result property="startAt" column="start_at" jdbcType="TIMESTAMP"/>
+        <result property="endAt" column="end_at" jdbcType="TIMESTAMP"/>
+        <result property="interval" column="interval" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SchemeMap">
+        select
+          id, source_id, target_id, source_cols, target_cols, create_by, start_at, end_at, interval
+        from data_gateway.dg_scheme
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="SchemeMap">
+        select
+          id, source_id, target_id, source_cols, target_cols, create_by, start_at, end_at, interval
+        from data_gateway.dg_scheme
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SchemeMap">
+        select
+          id, source_id, target_id, source_cols, target_cols, create_by, start_at, end_at, interval
+        from data_gateway.dg_scheme
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="sourceId != null">
+                and source_id = #{sourceId}
+            </if>
+            <if test="targetId != null">
+                and target_id = #{targetId}
+            </if>
+            <if test="sourceCols != null and sourceCols != ''">
+                and source_cols = #{sourceCols}
+            </if>
+            <if test="targetCols != null and targetCols != ''">
+                and target_cols = #{targetCols}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="startAt != null">
+                and start_at = #{startAt}
+            </if>
+            <if test="endAt != null">
+                and end_at = #{endAt}
+            </if>
+            <if test="interval != null">
+                and interval = #{interval}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into data_gateway.dg_scheme(source_id, target_id, source_cols, target_cols, create_by, start_at, end_at, interval)
+        values (#{sourceId}, #{targetId}, #{sourceCols}, #{targetCols}, #{createBy}, #{startAt}, #{endAt}, #{interval})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update data_gateway.dg_scheme
+        <set>
+            <if test="sourceId != null">
+                source_id = #{sourceId},
+            </if>
+            <if test="targetId != null">
+                target_id = #{targetId},
+            </if>
+            <if test="sourceCols != null and sourceCols != ''">
+                source_cols = #{sourceCols},
+            </if>
+            <if test="targetCols != null and targetCols != ''">
+                target_cols = #{targetCols},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="startAt != null">
+                start_at = #{startAt},
+            </if>
+            <if test="endAt != null">
+                end_at = #{endAt},
+            </if>
+            <if test="interval != null">
+                interval = #{interval},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from data_gateway.dg_scheme where id = #{id}
+    </delete>
+
+</mapper>

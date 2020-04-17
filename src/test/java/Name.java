@@ -60,4 +60,16 @@ public class Name {
         System.out.println("insert into user ("+ cols.toString().substring(1, cols.toString().length() - 1) +
                 ") values ("+params.toString().substring(1,params.toString().length()-1)+")");
     }
+
+    @Test
+    void stringToList(){
+        List<String> cols = new ArrayList<>();
+
+//        cols.add("id");
+//        cols.add("user_name");
+        String s = cols.toString();
+        System.out.println(s);
+        System.out.println(Arrays.asList(s.substring(1, s.length() - 1).split(", ")));
+
+    }
 }

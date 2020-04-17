@@ -1,5 +1,6 @@
 package com.gateway.service;
 
+import com.gateway.entity.Scheme;
 import com.gateway.entity.TransScheme;
 
 /**
@@ -17,7 +18,7 @@ public interface TransformService {
      * 执行转换方案
      * @param transScheme
      */
-    void invokeScheme(TransScheme transScheme);
+    void invokeScheme(Scheme transScheme);
 
     /**
      * 移除转换方案
