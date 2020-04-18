@@ -24,11 +24,15 @@ public class Scheme implements Serializable {
     private Integer id;
     
     private Integer sourceId;
+
+    private String sourceTable;
     
     private Integer targetId;
+
+    private String targetTable;
     
     private String sourceCols;
-    
+
     private String targetCols;
     /**
     * 方案创建人的id

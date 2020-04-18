@@ -1,5 +1,6 @@
 package com.gateway.service;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.gateway.entity.Datasource;
 
 import java.util.List;
@@ -32,4 +33,11 @@ public interface DataSourceService {
      * @param datasource
      */
     void updateDataSource(Datasource datasource);
+
+    /**
+     * 得到一个数据源
+     * @param id
+     * @return
+     */
+    DruidDataSource getDataSource(Integer id);
 }

@@ -2,11 +2,8 @@ package com.gateway.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.gateway.entity.DataBase;
+import com.gateway.entity.Datasource;
 
-import java.sql.Connection;
-
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -58,17 +55,17 @@ public class ConnectionPool {
 
     }
 
-    public void addDataBase(DataBase dataBase) {
+    public void addDataBase(Datasource dataBase) {
         Properties dbProps = new Properties(commonProps);
         switch (dataBase.getType()) {
             case "MySql":
                 dbProps.setProperty("driver", "com.mysql.jdbc.Driver");
-                dbProps.setProperty("url", "jdbc:mysql://" + dataBase.getServerIp() + ":" + dataBase.getPort() + "/" + dataBase.getDbName());
+                dbProps.setProperty("url", "jdbc:mysql://" + dataBase.getIpAddress() + ":" + dataBase.getPort() + "/" + dataBase.getDbName());
                 dbProps.setProperty("connectionProperties", "useUnicode=true;characterEncoding=UTF8");
                 break;
             case "Oracle":
                 dbProps.setProperty("driver", "oracle.jdbc.driver.OracleDriver");
-                dbProps.setProperty("url", "jdbc:oracle:thin:@" + dataBase.getServerIp() + ":" + dataBase.getPort() + ":" + dataBase.getDbName());
+                dbProps.setProperty("url", "jdbc:oracle:thin:@" + dataBase.getIpAddress() + ":" + dataBase.getPort() + ":" + dataBase.getDbName());
                 System.out.println("Oracle");
                 break;
             case "SqlServer":
@@ -104,12 +101,18 @@ public class ConnectionPool {
         }
     }
 
-    public DruidDataSource getPool(Integer id) {
+    /**
+     * 根据数据源的主键id获取连接
+     * @param id
+     * @return
+     */
+    public DruidDataSource getDataSource(Integer id) {
         if (dataSourceMap.containsKey(id)) {
             return dataSourceMap.get(id);
         }
         return null;
     }
+
 
     /**
      * 获取单例

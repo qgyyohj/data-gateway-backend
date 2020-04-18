@@ -38,7 +38,7 @@ public class Datasource implements Serializable {
     /**
     * 数据源端口
     */
-    private String port;
+    private Integer port;
     /**
     * 数据源的拥有者
     */
@@ -48,4 +48,13 @@ public class Datasource implements Serializable {
     */
     private String comment;
 
+    /**
+     * 数据库类型
+     */
+    private String type;
+
+    /**
+     * 数据库名字
+     */
+    private String dbName;
 }

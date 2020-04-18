@@ -1,15 +1,13 @@
-import com.gateway.entity.DataBase;
+import com.gateway.entity.Datasource;
 import com.gateway.service.SqlService;
 import com.gateway.utils.ConnectionPool;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Name {
@@ -25,16 +23,16 @@ public class Name {
     public void getConnection() throws SQLException {
         ConnectionPool connectionPool = ConnectionPool.getInstance();
         connectionPool.addDataBase(
-                DataBase.builder()
+                Datasource.builder()
                         .id(1)
                         .port(1521)
-                        .serverIp("127.0.0.1")
+                        .ipAddress("127.0.0.1")
                         .username("sys as sysdba")
                         .password("Oracle2020")
                         .dbName("oracle")
                         .type("Oracle")
                         .build());
-        System.out.println(connectionPool.getPool(1).getConnection());
+        System.out.println(connectionPool.getDataSource(1).getConnection());
         connectionPool.removeDataSource(1);
     }
 
