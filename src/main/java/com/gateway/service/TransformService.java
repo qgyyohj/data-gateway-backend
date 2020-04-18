@@ -12,9 +12,9 @@ public interface TransformService {
 
     /**
      * 添加一个数据库转换方案
-     * @param transScheme
+     * @param scheme
      */
-    void addTransScheme(TransScheme transScheme);
+    void addTransScheme(Scheme scheme);
 
     /**
      * 执行转换方案
