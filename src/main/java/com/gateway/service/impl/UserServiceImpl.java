@@ -9,7 +9,6 @@ import com.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.annotation.Target;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,22 +39,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addUser(User user) {
-        return userDao.insert(user);
+    public void addUser(User user) {
+         userDao.insert(user);
     }
 
     @Override
-    public int updateUser(User user) {
-        return userDao.update(user);
+    public void updatePwd(User user) {
+        userDao.update(user);
     }
 
     @Override
-    public int deleteUser(int id) {
-        return userDao.deleteById(id);
+    public void deleteUser(int id) {
+         userDao.deleteById(id);
     }
 
-    @Override
-    public int setUserAuthority() {
-        return 0;
-    }
 }

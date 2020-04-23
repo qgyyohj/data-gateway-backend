@@ -8,53 +8,35 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * (DgDatasource)实体类
+ * (Datasource)实体类
  *
  * @author makejava
- * @since 2020-04-17 21:01:18
+ * @since 2020-04-23 09:53:08
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Datasource implements Serializable {
-    private static final long serialVersionUID = 783726412647149218L;
-    /**
-    * 数据源id
-    */
+    private static final long serialVersionUID = -79898055341526103L;
+    
     private Integer id;
-    /**
-    * 数据库服务器ip
-    */
+    
+    private String name;
+    
     private String ipAddress;
-    /**
-    * 连接的用户名
-    */
-    private String username;
-    /**
-    * 连接的密码
-    */
-    private String password;
-    /**
-    * 数据源端口
-    */
+    
     private Integer port;
-    /**
-    * 数据源的拥有者
-    */
-    private Integer ownerId;
-    /**
-    * 备注
-    */
-    private String comment;
-
-    /**
-     * 数据库类型
-     */
-    private String type;
-
-    /**
-     * 数据库名字
-     */
+    
     private String dbName;
+    
+    private String username;
+    
+    private String password;
+    
+    private String dbType;
+    
+    private Integer ownerId;
+    
+    private String comment;
 }

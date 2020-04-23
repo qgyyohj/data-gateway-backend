@@ -5,10 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (User)实体类
+ * (Task)实体类
  *
  * @author makejava
  * @since 2020-04-23 09:53:08
@@ -17,18 +18,16 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
-    private static final long serialVersionUID = 303287117157763269L;
-    /**
-    * 用户表主键id
-    */
+public class Task implements Serializable {
+    private static final long serialVersionUID = 175719057562821738L;
+    
     private Integer id;
-    /**
-    * 用户名
-    */
-    private String username;
-    /**
-    * 用户密码
-    */
-    private String password;
+    
+    private Integer schemeId;
+    
+    private Date startAt;
+    
+    private String endAt;
+    
+    private Integer interval;
 }

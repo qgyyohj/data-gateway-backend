@@ -1,4 +1,3 @@
-import com.gateway.entity.Datasource;
 import com.gateway.service.SqlService;
 import com.gateway.utils.ConnectionPool;
 import org.junit.jupiter.api.Test;

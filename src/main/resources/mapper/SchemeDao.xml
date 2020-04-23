@@ -4,121 +4,101 @@
 
     <resultMap type="com.gateway.entity.Scheme" id="SchemeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
-        <result property="sourceTable" column="source_table" jdbcType="VARCHAR"/>
-        <result property="targetId" column="target_id" jdbcType="INTEGER"/>
-        <result property="targetTable" column="target_table" jdbcType="VARCHAR"/>
-        <result property="sourceCols" column="source_cols" jdbcType="VARCHAR"/>
-        <result property="targetCols" column="target_cols" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sourceId" column="source_id" jdbcType="VARCHAR"/>
+        <result property="sourceTableName" column="source_table_name" jdbcType="VARCHAR"/>
+        <result property="sourceTableCols" column="source_table_cols" jdbcType="VARCHAR"/>
+        <result property="targetId" column="target_id" jdbcType="VARCHAR"/>
+        <result property="targetTableName" column="target_table_name" jdbcType="VARCHAR"/>
+        <result property="targetTableCols" column="target_table_cols" jdbcType="VARCHAR"/>
         <result property="createBy" column="create_by" jdbcType="INTEGER"/>
-        <result property="startAt" column="start_at" jdbcType="TIMESTAMP"/>
-        <result property="endAt" column="end_at" jdbcType="TIMESTAMP"/>
-        <result property="interval" column="interval" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="SchemeMap">
         select
-          id, source_id, source_table, target_id, target_table, source_cols, target_cols, create_by, start_at, end_at, `interval`
-        from data_gateway.dg_scheme
+          id, `name`, source_id, source_table_name, source_table_cols, target_id, target_table_name, target_table_cols, create_by
+        from data_gateway.scheme
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="SchemeMap">
         select
-          id, source_id, source_table, target_id, target_table, source_cols, target_cols, create_by, start_at, end_at, `interval`
-        from data_gateway.dg_scheme
+          id, `name`, source_id, source_table_name, source_table_cols, target_id, target_table_name, target_table_cols, create_by
+        from data_gateway.scheme
         limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SchemeMap">
         select
-        id, source_id, source_table, target_id, target_table, source_cols, target_cols, create_by, start_at, end_at, `interval`
-        from data_gateway.dg_scheme
+          id, `name`, source_id, source_table_name, source_table_cols, target_id, target_table_name, target_table_cols, create_by
+        from data_gateway.scheme
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="sourceId != null">
+            <if test="name != null and name != ''">
+                and `name` = #{name}
+            </if>
+            <if test="sourceId != null and sourceId != ''">
                 and source_id = #{sourceId}
             </if>
-            <if test="targetId != null">
+            <if test="sourceTableName != null and sourceTableName != ''">
+                and source_table_name = #{sourceTableName}
+            </if>
+            <if test="sourceTableCols != null and sourceTableCols != ''">
+                and source_table_cols = #{sourceTableCols}
+            </if>
+            <if test="targetId != null and targetId != ''">
                 and target_id = #{targetId}
             </if>
-            <if test="sourceCols != null and sourceCols != ''">
-                and source_cols = #{sourceCols}
+            <if test="targetTableName != null and targetTableName != ''">
+                and target_table_name = #{targetTableName}
             </if>
-            <if test="sourceTable != null and sourceTable != ''">
-                and source_table = #{sourceTable}
-            </if>
-            <if test="targetTable != null and targetTable != ''">
-                and target_table = #{targetTable}
-            </if>
-            <if test="targetCols != null and targetCols != ''">
-                and target_cols = #{targetCols}
+            <if test="targetTableCols != null and targetTableCols != ''">
+                and target_table_cols = #{targetTableCols}
             </if>
             <if test="createBy != null">
                 and create_by = #{createBy}
-            </if>
-            <if test="startAt != null">
-                and start_at = #{startAt}
-            </if>
-            <if test="endAt != null">
-                and end_at = #{endAt}
-            </if>
-            <if test="interval != null">
-                and `interval` = #{interval}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into data_gateway.dg_scheme(source_id, source_table, target_id, target_table, source_cols, target_cols, create_by, start_at, end_at, `interval`)
-        values (#{sourceId}, #{sourceTable}, #{targetId}, #{targetTable}, #{sourceCols}, #{targetCols}, #{createBy}, #{startAt}, #{endAt}, #{interval})
+        insert into data_gateway.scheme(`name`, source_id, source_table_name, source_table_cols, target_id, target_table_name, target_table_cols, create_by)
+        values (#{name}, #{sourceId}, #{sourceTableName}, #{sourceTableCols}, #{targetId}, #{targetTableName}, #{targetTableCols}, #{createBy})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update data_gateway.dg_scheme
+        update data_gateway.scheme
         <set>
-            <if test="sourceId != null">
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sourceId != null and sourceId != ''">
                 source_id = #{sourceId},
             </if>
-            <if test="targetId != null">
+            <if test="sourceTableName != null and sourceTableName != ''">
+                source_table_name = #{sourceTableName},
+            </if>
+            <if test="sourceTableCols != null and sourceTableCols != ''">
+                source_table_cols = #{sourceTableCols},
+            </if>
+            <if test="targetId != null and targetId != ''">
                 target_id = #{targetId},
             </if>
-            <if test="sourceTable != null and sourceTable != ''">
-                and source_table = #{sourceTable}
+            <if test="targetTableName != null and targetTableName != ''">
+                target_table_name = #{targetTableName},
             </if>
-            <if test="targetTable != null and targetTable != ''">
-                and target_table = #{targetTable}
-            </if>
-            <if test="sourceTable != null and sourceTable != ''">
-                and source_table = #{sourceTable}
-            </if>
-            <if test="targetTable != null and targetTable != ''">
-                and target_table = #{targetTable}
-            </if>
-            <if test="sourceCols != null and sourceCols != ''">
-                source_cols = #{sourceCols},
-            </if>
-            <if test="targetCols != null and targetCols != ''">
-                target_cols = #{targetCols},
+            <if test="targetTableCols != null and targetTableCols != ''">
+                target_table_cols = #{targetTableCols},
             </if>
             <if test="createBy != null">
                 create_by = #{createBy},
-            </if>
-            <if test="startAt != null">
-                start_at = #{startAt},
-            </if>
-            <if test="endAt != null">
-                end_at = #{endAt},
-            </if>
-            <if test="interval != null">
-                `interval` = #{interval},
             </if>
         </set>
         where id = #{id}
@@ -126,7 +106,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from data_gateway.dg_scheme where id = #{id}
+        delete from data_gateway.scheme where id = #{id}
     </delete>
 
 </mapper>

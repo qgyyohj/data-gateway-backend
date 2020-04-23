@@ -5,44 +5,36 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.io.Serializable;
 
 /**
- * (DgScheme)实体类
+ * (Scheme)实体类
  *
  * @author makejava
- * @since 2020-04-17 21:16:37
+ * @since 2020-04-23 09:53:08
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Scheme implements Serializable {
-    private static final long serialVersionUID = 204973421854891863L;
+    private static final long serialVersionUID = 781025545411393291L;
     
     private Integer id;
     
-    private Integer sourceId;
-
-    private String sourceTable;
+    private String name;
     
-    private Integer targetId;
-
-    private String targetTable;
+    private String sourceId;
     
-    private String sourceCols;
-
-    private String targetCols;
-    /**
-    * 方案创建人的id
-    */
+    private String sourceTableName;
+    
+    private String sourceTableCols;
+    
+    private String targetId;
+    
+    private String targetTableName;
+    
+    private String targetTableCols;
+    
     private Integer createBy;
-    
-    private Date startAt;
-    
-    private Date endAt;
-    
-    private Integer interval;
-
 }

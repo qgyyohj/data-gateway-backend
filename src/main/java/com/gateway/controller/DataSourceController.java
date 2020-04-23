@@ -1,6 +1,5 @@
 package com.gateway.controller;
 
-import com.gateway.entity.Datasource;
 import com.gateway.service.DataSourceService;
 import com.gateway.utils.CommonResponse;
 import org.springframework.beans.factory.annotation.Autowired;

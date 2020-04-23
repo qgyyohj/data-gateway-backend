@@ -4,43 +4,53 @@
 
     <resultMap type="com.gateway.entity.Datasource" id="DatasourceMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="ipAddress" column="ip_address" jdbcType="VARCHAR"/>
+        <result property="port" column="port" jdbcType="INTEGER"/>
+        <result property="dbName" column="db_name" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
-        <result property="port" column="port" jdbcType="INTEGER"/>
+        <result property="dbType" column="db_type" jdbcType="VARCHAR"/>
         <result property="ownerId" column="owner_id" jdbcType="INTEGER"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="VARCHAR"/>
-        <result property="dbName" column="db_name" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DatasourceMap">
         select
-          id, ip_address, username, password, port, owner_id, comment, `type`, db_name
-        from data_gateway.dg_datasource
+          id, `name`, ip_address, port, db_name, username, password, db_type, owner_id, comment
+        from data_gateway.datasource
         where id = #{id}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DatasourceMap">
         select
-          id, ip_address, username, password, port, owner_id, comment, `type`, db_name
-        from data_gateway.dg_datasource
+          id, `name`, ip_address, port, db_name, username, password, db_type, owner_id, comment
+        from data_gateway.datasource
         limit #{offset}, #{limit}
     </select>
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="DatasourceMap">
         select
-          id, ip_address, username, password, port, owner_id, comment, `type`, db_name
-        from data_gateway.dg_datasource
+          id, `name`, ip_address, port, db_name, username, password, db_type, owner_id, comment
+        from data_gateway.datasource
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
+            <if test="name != null and name != ''">
+                and `name` = #{name}
+            </if>
             <if test="ipAddress != null and ipAddress != ''">
                 and ip_address = #{ipAddress}
+            </if>
+            <if test="port != null">
+                and port = #{port}
+            </if>
+            <if test="dbName != null and dbName != ''">
+                and db_name = #{dbName}
             </if>
             <if test="username != null and username != ''">
                 and username = #{username}
@@ -48,8 +58,8 @@
             <if test="password != null and password != ''">
                 and password = #{password}
             </if>
-            <if test="port != null and port != ''">
-                and port = #{port}
+            <if test="dbType != null and dbType != ''">
+                and db_type = #{dbType}
             </if>
             <if test="ownerId != null">
                 and owner_id = #{ownerId}
@@ -57,27 +67,30 @@
             <if test="comment != null and comment != ''">
                 and comment = #{comment}
             </if>
-            <if test="type != null and type != ''">
-                and `type` = #{type}
-            </if>
-            <if test="dbName != null and dbName != ''">
-                and db_name = #{dbName}
-            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into data_gateway.dg_datasource(ip_address, username, password, port, owner_id, comment, `type`, db_name)
-        values (#{ipAddress}, #{username}, #{password}, #{port}, #{ownerId}, #{comment}, #{type}, #{dbName})
+        insert into data_gateway.datasource(`name`, ip_address, port, db_name, username, password, db_type, owner_id, comment)
+        values (#{name}, #{ipAddress}, #{port}, #{dbName}, #{username}, #{password}, #{dbType}, #{ownerId}, #{comment})
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update data_gateway.dg_datasource
+        update data_gateway.datasource
         <set>
+            <if test="name != null and name != ''">
+                `name` = #{name},
+            </if>
             <if test="ipAddress != null and ipAddress != ''">
                 ip_address = #{ipAddress},
+            </if>
+            <if test="port != null">
+                port = #{port},
+            </if>
+            <if test="dbName != null and dbName != ''">
+                db_name = #{dbName},
             </if>
             <if test="username != null and username != ''">
                 username = #{username},
@@ -85,8 +98,8 @@
             <if test="password != null and password != ''">
                 password = #{password},
             </if>
-            <if test="port != null and port != ''">
-                port = #{port},
+            <if test="dbType != null and dbType != ''">
+                db_type = #{dbType},
             </if>
             <if test="ownerId != null">
                 owner_id = #{ownerId},
@@ -94,19 +107,13 @@
             <if test="comment != null and comment != ''">
                 comment = #{comment},
             </if>
-            <if test="type != null and type != ''">
-                and `type` = #{type}
-            </if>
-            <if test="dbName != null and dbName != ''">
-                and db_name = #{dbName}
-            </if>
         </set>
         where id = #{id}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from data_gateway.dg_datasource where id = #{id}
+        delete from data_gateway.datasource where id = #{id}
     </delete>
 
 </mapper>

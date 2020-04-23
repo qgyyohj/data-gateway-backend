@@ -1,16 +1,16 @@
 package com.gateway.dao;
 
-import com.gateway.entity.Scheme;
+import com.gateway.entity.Task;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (Scheme)表数据库访问层
+ * (Task)表数据库访问层
  *
  * @author makejava
  * @since 2020-04-23 09:53:08
  */
-public interface SchemeDao {
+public interface TaskDao {
 
     /**
      * 通过ID查询单条数据
@@ -18,7 +18,7 @@ public interface SchemeDao {
      * @param id 主键
      * @return 实例对象
      */
-    Scheme queryById(Integer id);
+    Task queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -27,32 +27,32 @@ public interface SchemeDao {
      * @param limit 查询条数
      * @return 对象列表
      */
-    List<Scheme> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
+    List<Task> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
      * 通过实体作为筛选条件查询
      *
-     * @param scheme 实例对象
+     * @param task 实例对象
      * @return 对象列表
      */
-    List<Scheme> queryAll(Scheme scheme);
+    List<Task> queryAll(Task task);
 
     /**
      * 新增数据
      *
-     * @param scheme 实例对象
+     * @param task 实例对象
      * @return 影响行数
      */
-    int insert(Scheme scheme);
+    int insert(Task task);
 
     /**
      * 修改数据
      *
-     * @param scheme 实例对象
+     * @param task 实例对象
      * @return 影响行数
      */
-    int update(Scheme scheme);
+    int update(Task task);
 
     /**
      * 通过主键删除数据

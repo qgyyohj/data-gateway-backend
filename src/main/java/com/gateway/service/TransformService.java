@@ -1,8 +1,5 @@
 package com.gateway.service;
 
-import com.gateway.entity.Scheme;
-import com.gateway.entity.TransScheme;
-
 import java.sql.SQLException;
 import java.util.List;
 

@@ -30,4 +30,10 @@ public class UserController {
         }
         return CommonResponse.commonFail(msg);
     }
+
+    @PostMapping
+    @ResponseBody
+    public Map<String,Object> addUser(String username,String password){
+        userService.addUser();
+    }
 }

@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * (DgDatasource)表数据库访问层
+ * (Datasource)表数据库访问层
  *
  * @author makejava
- * @since 2020-04-17 21:01:18
+ * @since 2020-04-23 09:53:08
  */
 public interface DatasourceDao {
 

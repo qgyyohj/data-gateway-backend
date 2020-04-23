@@ -2,11 +2,12 @@ package com.gateway.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
-import com.gateway.entity.Datasource;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import com.gateway.entity.Datasource;
 
 /**
  * @author Z
@@ -57,8 +58,8 @@ public class ConnectionPool {
 
     public void addDataBase(Datasource dataBase) {
         Properties dbProps = new Properties(commonProps);
-        switch (dataBase.getType()) {
-            case "MySql":
+        switch (dataBase.getDbType()) {
+            case "MySQL":
                 dbProps.setProperty("driver", "com.mysql.jdbc.Driver");
                 dbProps.setProperty("url", "jdbc:mysql://" + dataBase.getIpAddress() + ":" + dataBase.getPort() + "/" + dataBase.getDbName());
                 dbProps.setProperty("connectionProperties", "useUnicode=true;characterEncoding=UTF8");
@@ -70,9 +71,6 @@ public class ConnectionPool {
                 break;
             case "SqlServer":
                 System.out.println("SqlServer");
-                break;
-            case "Excel":
-                System.out.println("Excel");
                 break;
             default:
                 break;

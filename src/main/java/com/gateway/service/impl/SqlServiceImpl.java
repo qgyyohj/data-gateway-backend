@@ -1,7 +1,5 @@
 package com.gateway.service.impl;
 
-import com.gateway.dao.DatasourceDao;
-import com.gateway.entity.Datasource;
 import com.gateway.service.SqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

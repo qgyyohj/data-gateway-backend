@@ -1,7 +1,6 @@
 package com.gateway.service;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.gateway.entity.Datasource;
 
 import java.sql.SQLException;
 import java.util.List;

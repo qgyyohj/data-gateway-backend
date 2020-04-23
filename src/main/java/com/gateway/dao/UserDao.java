@@ -1,7 +1,6 @@
 package com.gateway.dao;
 
 import com.gateway.entity.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
@@ -9,9 +8,8 @@ import java.util.List;
  * (User)表数据库访问层
  *
  * @author makejava
- * @since 2020-02-18 22:15:22
+ * @since 2020-04-23 09:53:08
  */
-@Mapper
 public interface UserDao {
 
     /**
