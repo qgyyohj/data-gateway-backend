@@ -19,47 +19,47 @@ public class TaskController {
 
     private final static Logger log = LoggerFactory.getLogger(TaskController.class);
 
-    @GetMapping
-    @ResponseBody
-    public Map<String,Object> a(){
-        try{
-            return Response.commonSuccess("");
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return Response.commonFail("");
-        }
-    }
-
-    @GetMapping
-    @ResponseBody
-    public Map<String,Object> b(){
-        try{
-            return Response.commonSuccess("");
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return Response.commonFail("");
-        }
-    }
-
-    @GetMapping
-    @ResponseBody
-    public Map<String,Object> c(){
-        try{
-            return Response.commonSuccess("");
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return Response.commonFail("");
-        }
-    }
-
-    @GetMapping
-    @ResponseBody
-    public Map<String,Object> d(){
-        try{
-            return Response.commonSuccess("");
-        }catch (Exception e){
-            log.error(e.getMessage());
-            return Response.commonFail("");
-        }
-    }
+//    @GetMapping
+//    @ResponseBody
+//    public Map<String,Object> a(){
+//        try{
+//            return Response.commonSuccess("");
+//        }catch (Exception e){
+//            log.error(e.getMessage());
+//            return Response.commonFail("");
+//        }
+//    }
+//
+//    @GetMapping
+//    @ResponseBody
+//    public Map<String,Object> b(){
+//        try{
+//            return Response.commonSuccess("");
+//        }catch (Exception e){
+//            log.error(e.getMessage());
+//            return Response.commonFail("");
+//        }
+//    }
+//
+//    @GetMapping
+//    @ResponseBody
+//    public Map<String,Object> c(){
+//        try{
+//            return Response.commonSuccess("");
+//        }catch (Exception e){
+//            log.error(e.getMessage());
+//            return Response.commonFail("");
+//        }
+//    }
+//
+//    @GetMapping
+//    @ResponseBody
+//    public Map<String,Object> d(){
+//        try{
+//            return Response.commonSuccess("");
+//        }catch (Exception e){
+//            log.error(e.getMessage());
+//            return Response.commonFail("");
+//        }
+//    }
 }

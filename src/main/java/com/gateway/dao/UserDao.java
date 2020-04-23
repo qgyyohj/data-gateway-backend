@@ -1,7 +1,9 @@
 package com.gateway.dao;
 
 import com.gateway.entity.User;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -10,6 +12,7 @@ import java.util.List;
  * @author makejava
  * @since 2020-04-23 09:53:08
  */
+@Mapper
 public interface UserDao {
 
     /**

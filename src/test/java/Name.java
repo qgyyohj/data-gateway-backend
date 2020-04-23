@@ -1,3 +1,4 @@
+import com.gateway.entity.Datasource;
 import com.gateway.service.SqlService;
 import com.gateway.utils.ConnectionPool;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ public class Name {
                         .username("sys as sysdba")
                         .password("Oracle2020")
                         .dbName("oracle")
-                        .type("Oracle")
+                        .dbType("Oracle")
                         .build());
         System.out.println(connectionPool.getDataSource(1).getConnection());
         connectionPool.removeDataSource(1);
