@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
          dss.stream().forEach(x->datasourceDao.deleteById(x.getId()));
     }
 
+    @Override
+    public List<User> queryAll() {
+        return userDao.queryAll(null);
+    }
+
 }

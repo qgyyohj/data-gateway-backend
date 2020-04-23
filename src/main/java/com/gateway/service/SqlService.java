@@ -3,6 +3,7 @@ package com.gateway.service;
 import java.util.List;
 
 /**
+ * 本服务接口只提供SQL语句
  * @author Z
  */
 public interface SqlService{
@@ -25,9 +26,27 @@ public interface SqlService{
     String insertItem(String table, List<String> cols, List<String> params);
 
     /**
-     * 得到数据库中的表
+     * 得到数据源中的表
      * @param id
      * @return
      */
-    String getCol(Integer id);
+    String getTables(Integer id);
+
+    /**
+     * 查询指定数据源表中的列
+     * @param id
+     * @param tableName
+     * @return
+     */
+    String getTableCols(Integer id,String tableName);
+
+    /**
+     * 查询指定数据源表中的数据
+     * @param id
+     * @param tableName
+     * @return
+     */
+    String getTableData(Integer id,String tableName);
+
+
 }

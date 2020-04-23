@@ -1,5 +1,7 @@
 package com.gateway.service.impl;
 
+import com.gateway.dao.DatasourceDao;
+import com.gateway.entity.Datasource;
 import com.gateway.service.SqlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,10 +32,10 @@ public class SqlServiceImpl implements SqlService {
     }
 
     @Override
-    public String getCol(Integer id) {
+    public String getTables(Integer id) {
         Datasource datasource = datasourceDao.queryById(id);
         String dbName = datasource.getDbName();
-        switch (datasource.getType()){
+        switch (datasource.getDbType()){
             case "MySql":
                 return "show tables from "+dbName+";";
             case "Oracle":
@@ -42,8 +44,16 @@ public class SqlServiceImpl implements SqlService {
                 return "select name from sysobjects where type = 'U';";
             default:
                 return null;
-
         }
+    }
 
+    @Override
+    public String getTableCols(Integer id, String tableName) {
+        return null;
+    }
+
+    @Override
+    public String getTableData(Integer id, String tableName) {
+        return null;
     }
 }

@@ -44,26 +44,27 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public List<String> getTableCols(Integer id, String tableName) throws SQLException {
-        DruidDataSource druidDataSource = getDataSource(id);
-        String sql = sqlService.getCol(id);
-        ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
-        List<String> cols = new ArrayList<>();
-        while (rs.next()){
-            cols.add(rs.getString(0));
-        }
-        return cols;
+//        DruidDataSource druidDataSource = getDataSource(id);
+//        String sql = sqlService.getCol(id);
+//        ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
+//        List<String> cols = new ArrayList<>();
+//        while (rs.next()){
+//            cols.add(rs.getString(0));
+//        }
+//        return cols;
+        return null;
     }
 
     @Override
     public List<List<String>> getTableData(Integer id, String tableName) throws SQLException {
-        Datasource datasource = datasourceDao.queryById(id);
-        List<String> cols = getTableCols(id,"");
-        String sql = sqlService.query(datasource.getDbName(),cols);
-        DruidDataSource druidDataSource =getDataSource(id);
-        ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
-        while(rs.next()){
-            //cols.stream().
-        }
+//        Datasource datasource = datasourceDao.queryById(id);
+//        List<String> cols = getTableCols(id,"");
+//        String sql = sqlService.query(datasource.getDbName(),cols);
+//        DruidDataSource druidDataSource =getDataSource(id);
+//        ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
+//        while(rs.next()){
+//            //cols.stream().
+//        }
         return null;
     }
 }

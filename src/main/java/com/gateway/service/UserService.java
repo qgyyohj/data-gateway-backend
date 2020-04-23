@@ -2,6 +2,8 @@ package com.gateway.service;
 
 import com.gateway.entity.User;
 
+import java.util.List;
+
 /**
  * @author z
  */
@@ -36,5 +38,7 @@ public interface UserService {
      * @return
      */
     void deleteUser(int id);
+
+    List<User> queryAll();
 
 }
