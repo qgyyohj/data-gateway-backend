@@ -3,6 +3,7 @@ package com.gateway.service;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.gateway.entity.Datasource;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -40,4 +41,8 @@ public interface DataSourceService {
      * @return
      */
     DruidDataSource getDataSource(Integer id);
+
+    List<String> getCol(Integer id) throws SQLException;
+
+    List<String> getTableData(Integer id) throws SQLException;
 }

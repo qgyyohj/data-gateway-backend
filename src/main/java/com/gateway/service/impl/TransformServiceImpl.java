@@ -13,7 +13,6 @@ import com.gateway.utils.ConnectionPool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -82,5 +81,10 @@ public class TransformServiceImpl implements TransformService {
     @Override
     public void removeScheme(Integer id) {
         schemeDao.deleteById(id);
+    }
+
+    @Override
+    public List<Scheme> queryScheme() {
+        return schemeDao.queryAll(null);
     }
 }

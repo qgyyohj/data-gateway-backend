@@ -1,4 +1,4 @@
-package com.gateway.response;
+package com.gateway.utils;
 
 import java.util.HashMap;
 import java.util.Map;

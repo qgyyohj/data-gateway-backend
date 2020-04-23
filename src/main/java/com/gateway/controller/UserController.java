@@ -1,7 +1,7 @@
 package com.gateway.controller;
 
 import com.gateway.entity.UserMsgEnum;
-import com.gateway.response.CommonResponse;
+import com.gateway.utils.CommonResponse;
 import com.gateway.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

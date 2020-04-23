@@ -1,7 +1,12 @@
 package com.gateway.controller;
 
+import com.gateway.entity.Datasource;
+import com.gateway.service.DataSourceService;
+import com.gateway.utils.CommonResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -13,10 +18,21 @@ import java.util.Map;
 @RequestMapping("/ds")
 public class DataSourceController {
 
-    @PostMapping("/addDataSource")
-    public Map<String,Object> addDataSource(){
+    @Autowired
+    DataSourceService dataSourceService;
 
-        return null;
+    @ResponseBody
+    @PostMapping("/addDataSource")
+    public Map<String,Object> addDataSource(Datasource datasource){
+        try {
+            dataSourceService.addDataSource(datasource);
+            return CommonResponse.commonSuccess(null);
+        }catch (Exception e){
+            return CommonResponse.commonFail("添加数据源失败");
+        }
+
     }
+
+
 
 }

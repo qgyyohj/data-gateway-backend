@@ -23,4 +23,11 @@ public interface SqlService{
      * @return
      */
     String insertItem(String table, List<String> cols, List<String> params);
+
+    /**
+     * 得到数据库中的表
+     * @param id
+     * @return
+     */
+    String getCol(Integer id);
 }
