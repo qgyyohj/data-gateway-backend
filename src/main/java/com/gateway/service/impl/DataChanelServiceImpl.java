@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
@@ -37,6 +40,9 @@ public class DataChanelServiceImpl implements DataChanelService {
     @Autowired
     SqlService sqlService;
 
+    ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(10);
+
+    private static Map<Integer,ScheduledFuture> map = new HashMap<>();
 
     @Override
     public void invokeScheme(Integer id) {
@@ -44,17 +50,20 @@ public class DataChanelServiceImpl implements DataChanelService {
         Scheme scheme = schemeDao.queryById(task.getSchemeId());
         Date start = task.getStartAt();
         Integer interval = task.getInterval();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
+        List<List<String>> data = new ArrayList<>();
+        List<List<String>> items = new ArrayList<>();
+        ScheduledFuture<?> scheduledFuture = executor.scheduleWithFixedDelay(new Runnable() {
             @SneakyThrows
             @Override
             public void run() {
-                invoke(scheme);
+                log.info("执行转换，当前时间：",new Date(System.currentTimeMillis()));
+                invoke(scheme,data,items);
             }
-        }, start, interval);
+        }, start.getTime()-System.currentTimeMillis(), interval, TimeUnit.SECONDS);
+        map.put(task.getId(),scheduledFuture);
     }
 
-    void invoke(Scheme scheme) throws SQLException {
+    void invoke(Scheme scheme,List<List<String>> data,List<List<String>> items) throws SQLException {
         // 拿到方案中数据源的相关参数
         List<String> sourceCols = CommonUtil.strToList(scheme.getSourceTableCols());
         List<String> targetCols = CommonUtil.strToList(scheme.getTargetTableCols());
@@ -69,7 +78,6 @@ public class DataChanelServiceImpl implements DataChanelService {
         // 执行查询，得到结果集
         ResultSet rs = source.getConnection().getConnection().createStatement().executeQuery(querySql);
         // 解析某一条数据项
-        List<List<String>> items = new ArrayList<>();
         List<String> item = new ArrayList<>();
         while (rs.next()) {
             // 查询到一条数据，构造一个item
@@ -81,7 +89,7 @@ public class DataChanelServiceImpl implements DataChanelService {
                 }
             });
             // 将item存放到items，然后清空item，准备下一次的添加
-            items.add(item);
+            data.add(item);
             // 放进去就可以清空了
             item.clear();
         }
@@ -94,9 +102,8 @@ public class DataChanelServiceImpl implements DataChanelService {
         // 集合a记录新的查询到的东西
         // 集合a与b作差集就是新的要执行的任务的数据项 a-b===a.removeAll(b)
         ////////////////////////////////////////////////////////
-        List<List<String>> data = new ArrayList<>();
-        items.removeAll(data);
-        items.stream().forEach(x -> {
+        data.removeAll(items);
+        data.stream().forEach(x -> {
             String insertSQL = sqlService.insertItem(targetTable, targetCols, x);
             try {
                 // 执行插入
@@ -105,19 +112,15 @@ public class DataChanelServiceImpl implements DataChanelService {
                 e.printStackTrace();
             }
         });
-        data.addAll(items);
+        items.addAll(data);
     }
 
     @Override
     public void removeTask(Integer id) {
         log.info("删除任务");
+        map.get(id).cancel(true);
+        map.remove(id);
         taskDao.deleteById(id);
-    }
-
-    @Override
-    public void updateTask(Task task) {
-        log.info("更新task");
-        taskDao.update(task);
     }
 
     @Override

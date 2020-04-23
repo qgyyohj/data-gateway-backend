@@ -25,12 +25,6 @@ public interface DataChanelService {
     void removeTask(Integer id);
 
     /**
-     * 更新一个task，主要是task的时间相关
-     * @param task
-     */
-    void updateTask(Task task);
-
-    /**
      * 添加一个task
      * @param task
      */
