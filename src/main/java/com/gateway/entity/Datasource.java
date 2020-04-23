@@ -11,14 +11,14 @@ import java.io.Serializable;
  * (Datasource)实体类
  *
  * @author makejava
- * @since 2020-04-23 09:53:08
+ * @since 2020-04-23 10:24:27
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Datasource implements Serializable {
-    private static final long serialVersionUID = -79898055341526103L;
+    private static final long serialVersionUID = 674221391383307322L;
     
     private Integer id;
     
@@ -37,6 +37,8 @@ public class Datasource implements Serializable {
     private String dbType;
     
     private Integer ownerId;
+    
+    private Integer isShared;
     
     private String comment;
 }

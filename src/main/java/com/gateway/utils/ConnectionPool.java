@@ -2,12 +2,11 @@ package com.gateway.utils;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
+import com.gateway.entity.Datasource;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import com.gateway.entity.Datasource;
 
 /**
  * @author Z

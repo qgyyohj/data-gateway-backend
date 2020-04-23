@@ -26,25 +26,6 @@ public class DataSourceServiceImpl implements DataSourceService {
     @Autowired
     SqlService sqlService;
 
-    @Override
-    public void addDataSource(Datasource datasource) {
-        datasourceDao.insert(datasource);
-    }
-
-    @Override
-    public void removeDataSource(Integer id) {
-        datasourceDao.deleteById(id);
-    }
-
-    @Override
-    public List<Datasource> queryAllDataSource() {
-        return datasourceDao.queryAll(null);
-    }
-
-    @Override
-    public void updateDataSource(Datasource datasource) {
-        datasourceDao.update(datasource);
-    }
 
     @Override
     public DruidDataSource getDataSource(Integer id) {
@@ -57,7 +38,12 @@ public class DataSourceServiceImpl implements DataSourceService {
     }
 
     @Override
-    public List<String> getCol(Integer id) throws SQLException {
+    public List<String> getTables(Integer id) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public List<String> getTableCols(Integer id, String tableName) throws SQLException {
         DruidDataSource druidDataSource = getDataSource(id);
         String sql = sqlService.getCol(id);
         ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
@@ -69,9 +55,9 @@ public class DataSourceServiceImpl implements DataSourceService {
     }
 
     @Override
-    public List<String> getTableData(Integer id) throws SQLException {
+    public List<List<String>> getTableData(Integer id, String tableName) throws SQLException {
         Datasource datasource = datasourceDao.queryById(id);
-        List<String> cols = getCol(id);
+        List<String> cols = getTableCols(id,"");
         String sql = sqlService.query(datasource.getDbName(),cols);
         DruidDataSource druidDataSource =getDataSource(id);
         ResultSet rs = druidDataSource.getConnection().getConnection().createStatement().executeQuery(sql);
