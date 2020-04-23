@@ -23,10 +23,12 @@ public interface UserService {
 
     /**
      * 仅仅允许管理员增加用户并且设置修改用户密码
-     * @param user
+     * @param id
+     * @param pwd
+     * @param newPwd
      * @return
      */
-    void updatePwd(User user);
+    boolean updatePwd(Integer id,String pwd,String newPwd);
 
     /**
      * 删除用户仅仅允许管理员操作

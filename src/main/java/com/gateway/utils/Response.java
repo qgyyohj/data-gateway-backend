@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * @author z
  */
-public class CommonResponse {
+public class Response {
     /**
      * 接口成功的通用返回值
      * @param object
