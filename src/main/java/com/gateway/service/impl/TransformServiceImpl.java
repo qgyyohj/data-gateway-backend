@@ -1,6 +1,9 @@
 package com.gateway.service.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.gateway.dao.DatasourceDao;
+import com.gateway.dao.SchemeDao;
+import com.gateway.entity.Scheme;
 import com.gateway.service.SqlService;
 import com.gateway.service.TransformService;
 import com.gateway.utils.CommonUtil;

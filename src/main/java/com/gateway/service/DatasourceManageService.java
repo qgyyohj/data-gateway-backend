@@ -23,6 +23,7 @@ public interface DatasourceManageService {
 
     /**
      * 查询本用户能看到的所有数据源
+     * @param id
      * @return
      */
     List<Datasource> queryAll(Integer id);

@@ -1,5 +1,7 @@
 package com.gateway.service;
 
+import com.gateway.entity.Scheme;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public interface TransformService {
     /**
      * 执行转换方案
      * @param transScheme
+     * @throws SQLException
      */
     void invokeScheme(Scheme transScheme) throws SQLException;
 
