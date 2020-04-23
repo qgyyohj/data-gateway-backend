@@ -5,10 +5,10 @@
     <resultMap type="com.gateway.entity.Scheme" id="SchemeMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="sourceId" column="source_id" jdbcType="VARCHAR"/>
+        <result property="sourceId" column="source_id" jdbcType="INTEGER"/>
         <result property="sourceTableName" column="source_table_name" jdbcType="VARCHAR"/>
         <result property="sourceTableCols" column="source_table_cols" jdbcType="VARCHAR"/>
-        <result property="targetId" column="target_id" jdbcType="VARCHAR"/>
+        <result property="targetId" column="target_id" jdbcType="INTEGER"/>
         <result property="targetTableName" column="target_table_name" jdbcType="VARCHAR"/>
         <result property="targetTableCols" column="target_table_cols" jdbcType="VARCHAR"/>
         <result property="createBy" column="create_by" jdbcType="INTEGER"/>

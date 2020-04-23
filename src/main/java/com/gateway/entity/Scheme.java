@@ -24,13 +24,13 @@ public class Scheme implements Serializable {
     
     private String name;
     
-    private String sourceId;
+    private Integer sourceId;
     
     private String sourceTableName;
     
     private String sourceTableCols;
     
-    private String targetId;
+    private Integer targetId;
     
     private String targetTableName;
     

@@ -3,6 +3,7 @@ package com.gateway.service;
 import com.gateway.entity.Scheme;
 import com.gateway.entity.Task;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ public interface DataChanelService {
      * 从task表中取task，然后执行，相关参数都在task里
      * @param id
      */
-    void invokeScheme(Integer id);
+    void invokeScheme(Integer id) throws SQLException;
 
     /**
      * 移除一个任务
@@ -60,9 +61,9 @@ public interface DataChanelService {
 
     /**
      * 移除方案
-     * @param scheme
+     * @param id
      */
-    void removeScheme(Scheme scheme);
+    void removeScheme(Integer id);
 
     /**
      * 查询方案，需要提供用户id
