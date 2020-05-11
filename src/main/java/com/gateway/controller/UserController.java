@@ -24,62 +24,61 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/logIn")
-    @ResponseBody
-    public Map<String,Object> logIn(String username,String password){
-        log.info("登陆,?,?",username,password);
-        String msg = userService.logIn(username,password);
-        if(msg.equals(UserMsgEnum.SUCCESS.getVar())){
-            return Response.commonSuccess(msg);
+    public Map<String, Object> logIn(@RequestBody Map<String, String> user) {
+        log.info("登陆,?,?" + user);
+        User u = userService.logIn(user.get("username"), user.get("password"));
+        if (null != u) {
+            u.setPassword(null);
+            return Response.commonSuccess(u);
+        } else {
+            return Response.commonFail("登陆失败");
         }
-        return Response.commonFail(msg);
     }
 
     @PostMapping("/addUser")
-    @ResponseBody
-    public Map<String,Object> addUser(String username,String password){
-        try{
-            log.info("添加用户,?,?",username,password);
-            userService.addUser(User.builder().username(username).password(password).build());
+    public Map<String, Object> addUser(@RequestBody Map<String, String> user) {
+        try {
+            log.info("添加用户,?,?" + user);
+            userService.addUser(User.builder().username(user.get("username")).password(user.get("password")).build());
             return Response.commonSuccess("添加用户成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.commonFail("添加用户失败");
         }
 
     }
 
     @PostMapping("/updatePwd")
-    @ResponseBody
-    public Map<String,Object> updatePwd(Integer id,String pwd,String newPwd){
-        try{
-            log.info("更新密码?,?,?",id,pwd,newPwd);
-            if(userService.updatePwd(id,pwd,newPwd)){
+    public Map<String, Object> updatePwd(@RequestBody Map<String, String> params) {
+        try {
+            log.info("更新密码?,?,?" + params);
+            if (userService.updatePwd(Integer.parseInt(params.get("id")), params.get("password1"), params.get("password2"))) {
                 return Response.commonSuccess("修改密码成功");
             }
             return Response.commonFail("原始密码不正确");
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.commonFail("修改密码失败");
         }
     }
 
     @GetMapping("/delete")
     @ResponseBody
-    public Map<String,Object> removeUser(Integer id){
-        try{
-            log.info("删除用户:",id);
+    public Map<String, Object> removeUser(Integer id) {
+        try {
+            log.info("删除用户:", id);
             userService.deleteUser(id);
             return Response.commonSuccess("删除用户成功");
-        }catch (Exception e){
+        } catch (Exception e) {
             return Response.commonFail("删除用户失败");
         }
     }
 
     @GetMapping("/query")
     @ResponseBody
-    public Map<String,Object> query(){
-        try{
+    public Map<String, Object> query() {
+        try {
             log.info("查询所有用户数据");
             return Response.commonSuccess(userService.queryAll());
-        }catch (Exception e){
+        } catch (Exception e) {
             log.info("");
             return Response.commonFail("查询失败");
         }

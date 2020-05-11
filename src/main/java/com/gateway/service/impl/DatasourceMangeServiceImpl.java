@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Z
@@ -40,7 +41,7 @@ public class DatasourceMangeServiceImpl implements DatasourceManageService {
         log.info("查询共享的数据源");
         List<Datasource> s = datasourceDao.queryAll(Datasource.builder().isShared(1).build());
         u.addAll(s);
-        return u;
+        return u.stream().distinct().collect(Collectors.toList());
     }
 
     @Override

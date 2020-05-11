@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,11 +24,10 @@ public class DataSourceController {
     @Autowired
     DatasourceManageService datasourceManageService;
 
-    @ResponseBody
-    @PostMapping("/addDataSource")
+    @GetMapping("/addDataSource")
     public Map<String,Object> addDataSource(Datasource datasource){
         try {
-            log.info("添加数据源",datasource);
+            log.info("添加数据源"+datasource);
             datasourceManageService.addDatasource(datasource);
             return Response.commonSuccess("添加成功");
         }catch (Exception e){
@@ -35,12 +35,11 @@ public class DataSourceController {
         }
     }
 
-    @ResponseBody
     @GetMapping("/delete")
-    public Map<String,Object> removeDatasource(Integer id){
+    public Map<String,Object> removeDatasource(@RequestParam(value = "ids")List<String> ids){
         try{
-            log.info("删除数据源",id);
-            datasourceManageService.removeDatasource(id);
+            log.info("删除数据源"+ids);
+            ids.stream().forEach(id->datasourceManageService.removeDatasource(Integer.parseInt(id)));
             return Response.commonSuccess("删除数据源成功");
         }catch (Exception e){
             log.error(e.getMessage());
@@ -48,7 +47,6 @@ public class DataSourceController {
         }
     }
 
-    @ResponseBody
     @GetMapping("/queryDatasource")
     public Map<String,Object> getDatasources(Integer id){
         try{
@@ -60,7 +58,6 @@ public class DataSourceController {
         }
     }
 
-    @ResponseBody
     @GetMapping("/update")
     public Map<String, Object> update(Datasource datasource){
         try{
@@ -70,6 +67,18 @@ public class DataSourceController {
         }catch (Exception e){
             log.error(e.getMessage());
             return Response.commonFail("更新失败");
+        }
+    }
+
+    @GetMapping("/queryDetail")
+    public Map<String, Object> queryDetail(Integer id){
+        try{
+            log.info("获取数据源详情:"+id);
+            datasourceManageService.queryAll(null).stream().filter(x->x.getId().equals(id)).findFirst().get();
+            return Response.commonSuccess(datasourceManageService.queryAll(null).stream().filter(x->x.getId().equals(id)).findFirst().get());
+        }catch (Exception e){
+            log.error(e.getMessage());
+            return Response.commonFail("获取数据源详情失败");
         }
     }
 }

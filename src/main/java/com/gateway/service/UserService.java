@@ -14,7 +14,7 @@ public interface UserService {
      * @param password
      * @return
      */
-    String logIn(String username,String password);
+    User logIn(String username,String password);
 
     /**
      * 仅仅允许管理员增加用户并且设置修改用户密码

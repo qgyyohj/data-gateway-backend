@@ -27,20 +27,13 @@ public class UserServiceImpl implements UserService {
     DatasourceDao datasourceDao;
 
     @Override
-    public String logIn(String username, String password) {
+    public User logIn(String username, String password) {
 
         List<User> user = userDao.queryAll(null).stream()
                 .filter(x->x.getUsername().equals(username))
                 .collect(Collectors.toList());
 
-        switch(user.size()){
-            case 0:
-                return UserMsgEnum.USER_IS_NOT_EXISTS.getVar();
-            case 1:
-                return user.get(0).getPassword().equals(password)?UserMsgEnum.SUCCESS.getVar():UserMsgEnum.WRONG_USERNAME_OR_PASSWORD.getVar();
-            default:
-                return UserMsgEnum.OTHERS.getVar();
-        }
+        return user.get(0).getPassword().equals(password)?user.get(0):null;
     }
 
     @Override
